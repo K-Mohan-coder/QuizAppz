@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md transform hover:scale-105 transition-all duration-300 animate-fade-in">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Join QuizApp! 🎯</h2>
+            <p class="text-gray-600">Create your account and start quizzing</p>
+        </div>
+        
+        <div th:if="${param.error}" class="mb-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg animate-pulse">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+                Registration failed. Please try again.
+            </div>
+        </div>
+        
+        <form th:action="@{/register}" method="post" class="space-y-6">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            
+            <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Username (Email):</label>
+                <input type="email" name="username" required 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 hover:border-purple-300"/>
+            </div>
+            
+            <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Password:</label>
+                <input type="password" name="password" required 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 hover:border-purple-300"/>
+            </div>
+            
+            <div class="space-y-3">
+                <label class="block text-sm font-semibold text-gray-700">Choose your role:</label>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 transition-all duration-200 cursor-pointer">
+                        <input type="radio" name="role" value="ROLE_PARTICIPANT" required class="w-4 h-4 text-blue-600 focus:ring-blue-500"/>
+                        <div class="ml-3">
+                            <span class="font-medium text-gray-800">🎮 Participant</span>
+                            <p class="text-sm text-gray-600">Take quizzes and track your progress</p>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 transition-all duration-200 cursor-pointer">
+                        <input type="radio" name="role" value="ROLE_ADMIN" required class="w-4 h-4 text-purple-600 focus:ring-purple-500"/>
+                        <div class="ml-3">
+                            <span class="font-medium text-gray-800">👑 Admin</span>
+                            <p class="text-sm text-gray-600">Create and manage quizzes</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" 
+                    class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                Create Account ✨
+            </button>
+        </form>
+        
+        <div class="mt-6 text-center">
+            <p class="text-gray-600">Already have an account?</p>
+            <a th:href="@{/login}" class="text-purple-600 hover:text-purple-800 font-semibold hover:underline transition-colors duration-200">
+                Sign in here →
+            </a>
+        </div>
+    </div>
+</body>
+</html>

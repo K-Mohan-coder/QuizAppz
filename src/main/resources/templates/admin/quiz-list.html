@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Quiz List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-100">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-800 mb-2">Manage Quizzes 👑</h2>
+                    <p class="text-gray-600">Create, edit, and organize your quiz collection</p>
+                </div>
+                <a th:href="@{/admin/quiz/new}" 
+                   class="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+                    ✨ Create New Quiz
+                </a>
+            </div>
+        </div>
+        
+        <!-- No Quizzes Message -->
+        <div th:if="${#lists.isEmpty(quizzes)}" class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg shadow-md">
+            <div class="flex items-center">
+                <div class="text-4xl mr-4">📝</div>
+                <div>
+                    <h3 class="text-lg font-semibold text-yellow-800">No quizzes available</h3>
+                    <p class="text-yellow-700">Get started by creating your first quiz!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quizzes Table -->
+        <div th:if="${not #lists.isEmpty(quizzes)}" class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">Title</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">Description</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr th:each="quiz : ${quizzes}" class="hover:bg-gray-50 transition-colors duration-200">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <div class="text-2xl mr-3">📚</div>
+                                    <div>
+                                        <div class="text-lg font-semibold text-gray-900" th:text="${quiz.title} ?: 'N/A'"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <p class="text-gray-600" th:text="${quiz.description} ?: 'N/A'"></p>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a th:href="@{/admin/quiz/{id}/questions(id=${quiz.id})}" th:if="${quiz.id != null}"
+                                   class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-lg hover:from-green-600 hover:to-teal-600 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg">
+                                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                    Manage Questions
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Take Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-cyan-100 via-blue-100 to-purple-100">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Quiz Header -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8 text-center">
+            <div class="text-6xl mb-4">🧠</div>
+            <h2 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4" th:text="${quiz.title}"></h2>
+            <p class="text-gray-600 text-lg">Answer all questions and submit when ready!</p>
+        </div>
+        
+        <!-- Quiz Form -->
+        <form th:action="@{/participant/quiz/submit}" method="post" class="space-y-6">
+            <input type="hidden" name="quizId" th:value="${quiz.id}"/>
+            
+            <!-- Questions -->
+            <div th:each="question, iterStat : ${questions}" class="bg-white rounded-2xl shadow-xl p-8 transform hover:scale-[1.02] transition-all duration-300">
+                <div class="flex items-start mb-6">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">
+                        <span th:text="${iterStat.count}"></span>
+                    </div>
+                    <p class="text-xl font-semibold text-gray-800" th:text="${question.questionText}"></p>
+                </div>
+                
+                <div class="space-y-3 ml-12">
+                    <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-200 cursor-pointer group">
+                        <input type="radio" th:name="'question_' + ${question.id}" th:value="${question.optionA}" 
+                               class="w-5 h-5 text-blue-600 focus:ring-blue-500 mr-4"/>
+                        <div class="flex items-center">
+                            <span class="bg-blue-100 text-blue-800 font-semibold px-3 py-1 rounded-full text-sm mr-3 group-hover:bg-blue-200 transition-colors duration-200">A</span>
+                            <span class="text-gray-800 font-medium" th:text="${question.optionA}"></span>
+                        </div>
+                    </label>
+                    
+                    <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-green-50 hover:to-teal-50 transition-all duration-200 cursor-pointer group">
+                        <input type="radio" th:name="'question_' + ${question.id}" th:value="${question.optionB}" 
+                               class="w-5 h-5 text-green-600 focus:ring-green-500 mr-4"/>
+                        <div class="flex items-center">
+                            <span class="bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full text-sm mr-3 group-hover:bg-green-200 transition-colors duration-200">B</span>
+                            <span class="text-gray-800 font-medium" th:text="${question.optionB}"></span>
+                        </div>
+                    </label>
+                    
+                    <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-orange-50 transition-all duration-200 cursor-pointer group">
+                        <input type="radio" th:name="'question_' + ${question.id}" th:value="${question.optionC}" 
+                               class="w-5 h-5 text-yellow-600 focus:ring-yellow-500 mr-4"/>
+                        <div class="flex items-center">
+                            <span class="bg-yellow-100 text-yellow-800 font-semibold px-3 py-1 rounded-full text-sm mr-3 group-hover:bg-yellow-200 transition-colors duration-200">C</span>
+                            <span class="text-gray-800 font-medium" th:text="${question.optionC}"></span>
+                        </div>
+                    </label>
+                    
+                    <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 transition-all duration-200 cursor-pointer group">
+                        <input type="radio" th:name="'question_' + ${question.id}" th:value="${question.optionD}" 
+                               class="w-5 h-5 text-purple-600 focus:ring-purple-500 mr-4"/>
+                        <div class="flex items-center">
+                            <span class="bg-purple-100 text-purple-800 font-semibold px-3 py-1 rounded-full text-sm mr-3 group-hover:bg-purple-200 transition-colors duration-200">D</span>
+                            <span class="text-gray-800 font-medium" th:text="${question.optionD}"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="text-center pt-8">
+                <button type="submit" 
+                        class="bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold py-4 px-12 rounded-2xl hover:from-green-700 hover:to-blue-700 transform hover:scale-105 transition-all duration-200 shadow-xl hover:shadow-2xl text-xl">
+                    🚀 Submit Quiz
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
