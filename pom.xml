@@ -65,4 +65,8 @@
             </plugin>
         </plugins>
     </build>
+<<<<<<< HEAD
 </project>
+=======
+</project>
+>>>>>>> 4f4aff3 (Dockerfile)
