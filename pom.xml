@@ -52,9 +52,9 @@
             <scope>test</scope>
         </dependency>
         <!-- <dependency>
-        	<groupId>com.eventManager</groupId>
-        	<artifactId>eventmanager</artifactId>
-        	<version>0.0.1-SNAPSHOT</version>
+            <groupId>com.eventManager</groupId>
+            <artifactId>eventmanager</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency> -->
     </dependencies>
     <build>
@@ -65,8 +65,4 @@
             </plugin>
         </plugins>
     </build>
-<<<<<<< HEAD
 </project>
-=======
-</project>
->>>>>>> 4f4aff3 (Dockerfile)
