@@ -25,18 +25,8 @@ WORKDIR /app
 # Copy the JAR from the builder stage
 COPY --from=builder /app/target/*.jar app.jar
 
-# Expose the port
+# Expose the application port
 EXPOSE 8086
 
-<<<<<<< HEAD:Dockerfile
-<<<<<<< HEAD:Dockerfile
 # Run the application
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
-=======
-# Run the JAR file when the container starts
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
->>>>>>> 4f4aff3 (Dockerfile):DockerFile
-=======
-# Run the JAR
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
->>>>>>> f3ac01a (Error Resolved - Parcipant Quiz Error):DockerFile
